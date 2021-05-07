@@ -29,9 +29,9 @@ function App() {
           <Route path="/interview/interview_id">
             <Interview />
           </Route>
-          <Router path="/interview/new">
+          <Route path="/interview/new">
             <NewInterview />
-          </Router>
+          </Route>
           <Route path="/interview/:interview_id/view">
             <ViewInterview />
           </Route>
