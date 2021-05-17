@@ -43,3 +43,42 @@ body {
     padding: 0.5em;
   }
 }
+
+.Interview{
+
+  display: flex;
+  padding: 1em;
+  justify-content: space-between;
+
+  .CodeMirror{
+    border: 2px solid black;
+    color: white;
+    text-align: left;
+    min-width: 700px;
+    font-size: 1.5em;
+    width: 70vw;
+  }
+
+  aside{
+    display: flex;
+    .webcam div{
+      width: 200px;
+      height: 200px;
+      background-color: lightgray;
+      margin-left: 0.5em;
+      margin-bottom: 0.5em;
+    }
+
+    .buttons{
+      margin-left: 0.5em;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      button{
+        font-size: 1.5em;
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+}

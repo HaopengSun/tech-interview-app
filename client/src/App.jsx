@@ -26,7 +26,7 @@ function App() {
           <Route path="/dashboard">
             <Dashboard />
           </Route>
-          <Route path="/interview/interview_id">
+          <Route path="/interview">
             <Interview />
           </Route>
           <Route path="/interview/new">

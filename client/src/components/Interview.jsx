@@ -2,15 +2,33 @@ import { useState } from 'react';
 import { Controlled as CodeMirror } from 'react-codemirror2';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
+import 'codemirror/theme/material-darker.css';
+import 'codemirror/theme/material-ocean.css';
+import 'codemirror/theme/material-palenight.css';
+import 'codemirror/theme/neat.css';
+import 'codemirror/mode/xml/xml.js';
+import 'codemirror/mode/javascript/javascript.js';
 
 const Interview = props => {
-  const [code, setCode] = useState('<h1>')
+  const [code, setCode] = useState('const bob = () => console.log("hello world")')
+  const [options, setOptions] = useState({
+    theme: 'material',
+    mode: 'javascript',
+    tabSize: 2,
+    readOnly: false
+  })
+
+  const themeChange = (themeName) => {
+    console.log(themeName, {...options, theme: themeName})
+    setOptions({...options, theme: themeName})
+  }
+
   return (
-    <main>
+    <main className="Interview">
       <section>
       <CodeMirror
         value={code}
-        // options={options}
+        options={options}
         onBeforeChange={(editor, data, value) => {
           setCode(value);
         }}
@@ -18,6 +36,26 @@ const Interview = props => {
         }}
       />
       </section>
+
+      <aside>
+        <section className="webcam">
+          <div className='interviewer'>interviewer</div>
+          <div className='candidate'>candidate</div>
+        </section>
+        <section className="buttons">
+          <div>
+            <button onClick={() => setOptions({...options, readOnly: !options.readOnly})}>
+              {options.readOnly ? "take over" : "read only"}
+            </button>
+          </div>
+          <div className='theme-selection'>
+            <button onClick={() => themeChange('material-darker')}>darker theme</button>
+            <button onClick={() => themeChange('material-ocean')}>ocean theme</button>
+            <button onClick={() => themeChange('material-palenight')}>palenight theme</button>
+          </div>
+        </section>
+      </aside>
+
     </main>
   )
 }
