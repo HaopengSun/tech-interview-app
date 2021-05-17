@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Controlled as CodeMirror } from 'react-codemirror2';
+import useWebcam from '../hooks/useWebcam';
+
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
 import 'codemirror/theme/material-darker.css';
@@ -10,6 +12,9 @@ import 'codemirror/mode/xml/xml.js';
 import 'codemirror/mode/javascript/javascript.js';
 
 const Interview = props => {
+  const webcamFeed = useRef()
+  const {  authorized, webcamList, stream, chooseStream } = useWebcam()
+
   const [code, setCode] = useState('const bob = () => console.log("hello world")')
   const [options, setOptions] = useState({
     theme: 'material',
@@ -22,6 +27,12 @@ const Interview = props => {
     console.log(themeName, {...options, theme: themeName})
     setOptions({...options, theme: themeName})
   }
+
+  const streams = webcamList.map(streamItem => {
+    return <li onClick={() => chooseStream(streamItem)}>
+      {(stream && stream.label === streamItem.label) ? "X" : ""} - {streamItem.label}
+      </li>
+  })
 
   return (
     <main className="Interview">
@@ -37,6 +48,8 @@ const Interview = props => {
         }}
       />
       </section>
+
+      <section>{streams}</section>
 
       <aside>
         <section className="webcam">
