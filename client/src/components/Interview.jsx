@@ -27,6 +27,7 @@ const Interview = props => {
     <main className="Interview">
       <section>
       <CodeMirror
+        className= {`code-container ${options.readOnly ? "read-only" : ""}`}
         value={code}
         options={options}
         onBeforeChange={(editor, data, value) => {
