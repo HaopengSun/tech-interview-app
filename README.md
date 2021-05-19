@@ -8,3 +8,4 @@ https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
 
 npm install react-codemirror2 to adopt the code editor
 
+socket.io deploys the connection between the candidate and the recruiter
