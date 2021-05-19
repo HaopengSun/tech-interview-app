@@ -15,15 +15,9 @@ const Interview = props => {
   const webcamFeed = useRef({})
   const {  authorized, webcamList, stream, chooseStream } = useWebcam()
 
-  console.log(webcamFeed)
-
   useEffect(() => {
-    if (!stream) {
-      return
-    }
-    navigator
-      .mediaDevices
-      .getUserMedia({ video: true })
+    if (!stream) { return }
+    navigator.mediaDevices.getUserMedia({ video: { width: 200 }})
       .then(stream => {
         webcamFeed.current.srcObject = stream
       })
@@ -42,6 +36,7 @@ const Interview = props => {
     setOptions({...options, theme: themeName})
   }
 
+  // show all available webcam
   const streams = webcamList.map(streamItem => {
     return <li onClick={() => chooseStream(streamItem)}>
       {(stream && stream.label === streamItem.lable) ? "X" : ""} - {streamItem.label}
