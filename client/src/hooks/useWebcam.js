@@ -25,7 +25,7 @@ export default function useWebcam() {
           console.log(device)
           if (device.kind === 'videoinput') {
             console.log(device.kind + ": " + device.label + " id = " + device.groupId);
-            setWebcamList(prev => [...prev, { label: device.label, id: device.groupId }])
+            setWebcamList(prev => [...prev, { kind: device.kind, label: device.label, id: device.groupId }])
           }
         });
       })

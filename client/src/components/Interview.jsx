@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Controlled as CodeMirror } from 'react-codemirror2';
 import useWebcam from '../hooks/useWebcam';
 
@@ -12,8 +12,22 @@ import 'codemirror/mode/xml/xml.js';
 import 'codemirror/mode/javascript/javascript.js';
 
 const Interview = props => {
-  const webcamFeed = useRef()
+  const webcamFeed = useRef({})
   const {  authorized, webcamList, stream, chooseStream } = useWebcam()
+
+  console.log(webcamFeed)
+
+  useEffect(() => {
+    if (!stream) {
+      return
+    }
+    navigator
+      .mediaDevices
+      .getUserMedia({ video: true })
+      .then(stream => {
+        webcamFeed.current.srcObject = stream
+      })
+  }, [stream])
 
   const [code, setCode] = useState('const bob = () => console.log("hello world")')
   const [options, setOptions] = useState({
@@ -29,9 +43,8 @@ const Interview = props => {
   }
 
   const streams = webcamList.map(streamItem => {
-    console.log(streamItem)
     return <li onClick={() => chooseStream(streamItem)}>
-      {(stream && stream.label === streamItem.label) ? "X" : ""} - {streamItem.label}
+      {(stream && stream.label === streamItem.lable) ? "X" : ""} - {streamItem.label}
       </li>
   })
 
@@ -50,11 +63,11 @@ const Interview = props => {
       />
       </section>
 
-      <section>{streams}</section>
+      <section>available camera: {streams}</section>
 
       <aside>
         <section className="webcam">
-          <div className='interviewer'>interviewer</div>
+          <video ref={webcamFeed} onLoadedData={() => webcamFeed.current.play()}></video>
           <div className='candidate'>candidate</div>
         </section>
         <section className="buttons">
