@@ -22,9 +22,10 @@ export default function useWebcam() {
     navigator.mediaDevices.enumerateDevices()
       .then(function (devices) {
         devices.forEach(function (device) {
+          console.log(device)
           if (device.kind === 'videoinput') {
-            console.log(device.kind + ": " + device.label + " id = " + device.deviceId);
-            setWebcamList(prev => [...prev, { label: device.label, id: device.deviceId }])
+            console.log(device.kind + ": " + device.label + " id = " + device.groupId);
+            setWebcamList(prev => [...prev, { label: device.label, id: device.groupId }])
           }
         });
       })
@@ -37,7 +38,7 @@ export default function useWebcam() {
   useEffect(() => {
     if (selectedDevice) {
       const constraint = { video: { deviceId: selectedDevice.id } }
-      
+
       // https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
       navigator.mediaDevices.getUserMedia(constraint).then(function (stream) {
         setStream(stream)

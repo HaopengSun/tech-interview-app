@@ -29,6 +29,7 @@ const Interview = props => {
   }
 
   const streams = webcamList.map(streamItem => {
+    console.log(streamItem)
     return <li onClick={() => chooseStream(streamItem)}>
       {(stream && stream.label === streamItem.label) ? "X" : ""} - {streamItem.label}
       </li>
