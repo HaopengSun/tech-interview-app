@@ -22,7 +22,6 @@ export default function useWebcam() {
     navigator.mediaDevices.enumerateDevices()
       .then(function (devices) {
         devices.forEach(function (device) {
-          console.log(device)
           if (device.kind === 'videoinput') {
             console.log(device.kind + ": " + device.label + " id = " + device.groupId);
             setWebcamList(prev => [...prev, { kind: device.kind, label: device.label, id: device.groupId }])

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Controlled as CodeMirror } from 'react-codemirror2';
 import useWebcam from '../hooks/useWebcam';
+import io from 'socket.io-client';
 
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
@@ -30,6 +31,15 @@ const Interview = props => {
     tabSize: 2,
     readOnly: false
   })
+
+  // connect to the server
+  const socket = useRef()
+
+  useEffect(() => {
+    socket.current = io()
+    socket.current.on('message', (data) => console.log(data))
+  }, [])
+
 
   const themeChange = (themeName) => {
     console.log(themeName, {...options, theme: themeName})
